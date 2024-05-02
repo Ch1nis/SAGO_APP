@@ -1,0 +1,31 @@
+.navbar{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #097596;
+    padding:10px 3%;
+}
+
+.logo{
+    width: 90px;
+    cursor: pointer;
+}
+
+.navbar_search{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 50%;
+    border-radius: 5px;
+    padding: 5px;
+    position: relative;
+}
+
+.search_results {
+    position: absolute;
+    top: 15px;
+    left: 0px;
+    width: 100%;
+    z-index: 1;
+  }
