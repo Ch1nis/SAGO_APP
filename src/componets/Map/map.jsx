@@ -1,64 +1,51 @@
-import React from 'react';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import React, { useEffect, useRef } from 'react';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const lat = -40.57377;
 const lon = -73.10702;
-const zoom = 18;
+const zoom = 16.5; // Ahora puedes usar un zoom decimal
 
-const styles = {
-  poligonoStyle: { color: 'blue', weight: 0, opacity: 1, fillOpacity: 0.2 },
-  recintoStyle: { color: 'green', weight: 0, opacity: 1, fillOpacity: 0.2 },
-  oesteStyle: { color: 'red', weight: 0, opacity: 1, fillOpacity: 0.2 },
-  norteStyle: { color: 'cyan', weight: 0, opacity: 1, fillOpacity: 0.2 },
-  ayudaStyle: { color: '#007A78', weight: 0, opacity: 1, fillOpacity: 0.2 },
+const geojsons = ['./Poligonos/norte.geojson', './Poligonos/oeste.geojson'];
+
+const Map = () => {
+  const mapContainer = useRef(null);
+  let mapInstance = null; // Add this line
+
+  useEffect(() => {
+    if (!mapInstance) { // Add this line
+      mapInstance = L.map(mapContainer.current).setView([lat, lon], zoom); // Modify this line
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(mapInstance); // Modify this line
+
+      geojsons.forEach(geojson => {
+        fetch(geojson)
+          .then(response => response.json())
+          .then(data => {
+            // Crear la capa GeoJSON
+            const geoJsonLayer = L.geoJSON(data);
+      
+            // Añadir un popup a cada polígono
+            geoJsonLayer.eachLayer(layer => {
+              const properties = layer.feature.properties;
+              layer.bindPopup(`Nombre: ${properties.name}<br>Área: ${properties.area}`);
+            });
+      
+            // Añadir la capa al mapa
+            geoJsonLayer.addTo(mapInstance);
+      
+            // Cambiar el nivel de zoom cuando se selecciona un GeoJSON
+            geoJsonLayer.on('click', function() {
+              mapInstance.fitBounds(geoJsonLayer.getBounds(), { maxZoom: 20 });
+            });
+          });
+      });
+    } // Add this line
+  }, []);
+
+  return <div ref={mapContainer} style={{ height: "90svh", width: "100%" }} />;
 };
 
-const layers = [
-  { url: './Poligonos/poligono.geojson', style: styles.poligonoStyle, name: 'Polígono' },
-  { url: './Poligonos/sur.geojson', style: styles.recintoStyle, name: 'Recinto Sur' },
-  { url: './Poligonos/oeste.geojson', style: styles.oesteStyle, name: 'Recinto Oeste' },
-  { url: './Poligonos/norte.geojson', style: styles.norteStyle, name: 'Recinto Norte' },
-  { url: './Poligonos/ayuda.geojson', style: styles.ayudaStyle, name: 'Recinto Ayuda' },
-];
-
-function SetViewOnClick({ coords }) {
-  const map = useMap();
-  map.setView(coords, map.getZoom());
-
-  return null;
-}
-
-class LeafletMap extends React.Component {
-  componentDidMount() {
-    layers.forEach(layer => {
-      fetch(layer.url)
-        .then(response => response.json())
-        .then(geojson => {
-          const polygonLayer = L.geoJSON(geojson, {
-            style: layer.style,
-            onEachFeature: function (feature, layer) {
-              layer.bindTooltip(layer.name);
-              layer.bindPopup(`<b>${layer.name}</b><br>Esta zona es el área interior de "archivo ${layer.url.split('/').pop()}"`);
-            }
-          });
-          polygonLayer.addTo(this.map);
-        })
-        .catch(error => console.error(`Error loading ${layer.name} GeoJSON:`, error));
-    });
-  }
-
-  render() {
-    return (
-      <MapContainer center={[lat, lon]} zoom={zoom} style={{ height: "100vh", width: "100%" }}>
-        <SetViewOnClick coords={[lat, lon]} />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-      </MapContainer>
-    );
-  }
-}
-
-export default LeafletMap;
+export default Map;
