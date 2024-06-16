@@ -1,0 +1,23 @@
+.Login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+
+.Login form {
+    width: 50%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgb(206, 206, 206);
+}
+
+body{
+  background: rgb(120, 180, 172);
+
+}
+
