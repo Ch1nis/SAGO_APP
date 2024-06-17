@@ -1,0 +1,31 @@
+.icon_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(10, 121, 10);
+    cursor: pointer;
+}
+
+.menu_icon {
+    width: 20px;
+    height: 20px;
+}
+
+.offcanvas-body a {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.offcanvas-body a:hover {
+    background-color: #339933;
+    color: #ffffff;
+}

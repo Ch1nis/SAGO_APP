@@ -1,19 +1,24 @@
-.navbar{
+/* Estilos para el contenedor de la barra de navegación */
+.navbar {
+    height: 100px;
+    top: 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #ffffff;
-    padding:10px 3%;
+    padding: 10px 3%;
 }
 
-.logo{
+/* Estilos para el logo */
+.logo {
     padding-top: 2px;
     width: 20vh;
     cursor: pointer;
 }
 
-.navbar_search{
+/* Estilos para la barra de búsqueda */
+.navbar_search {
     display: flex;
     flex-direction: column;
     background: white;
@@ -29,9 +34,9 @@
     left: 0px;
     width: 100%;
     z-index: 1;
-  }
+}
 
-  .icon_container {
+.icon_container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,9 +45,141 @@
     border-radius: 50%;
     background-color: rgb(10, 121, 10);
     margin: 0 10px;
-  }
+}
 
-  .navbar_icons {
+.navbar_icons {
     display: flex;
     justify-content: space-between;
+}
+
+/* Estilos para los enlaces de navegación */
+.navbar_links {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar_links > li {
+    position: relative;
+    margin-right: 15px;
+}
+
+.navbar_links a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    display: block;
+    font-family: Arial, sans-serif;
+}
+
+.navbar_links .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    flex-direction: column;
+}
+
+.navbar_links li:hover .dropdown-content {
+    display: flex;
+}
+
+.navbar .dropdown-content {
+    z-index: 1000;
+}
+
+/* Estilos para los elementos <summary> */
+summary {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+/* Estilos para los enlaces <a> */
+a {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #0066cc;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 5px;
+}
+
+a:hover {
+    color: #fff; /* Color del texto al pasar el cursor */
+    background-color: #339933; /* Fondo verde al pasar el cursor */
+    text-decoration: none; /* Sin subrayado al pasar el cursor */
+}
+
+/* Estilos para los menús y submenús */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    position: relative;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    display: block;
+    font-family: Arial, sans-serif;
+}
+
+nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+nav ul li ul li {
+    display: block;
+    margin: 0;
+    left: -5px;
+}
+
+nav ul li ul li a {
+  padding: 10px 15px;
+  width: 100%;
+  box-sizing: border-box;
+  
+}
+
+/* Mostrar submenú al pasar el ratón sobre el elemento del menú principal */
+nav ul li:hover > ul {
+    display: block;
+}
+
+/* Estilos para los enlaces al pasar el ratón */
+nav ul li a:hover,
+nav ul li ul li a:hover {
+    background-color: #339933; /* Fondo verde al pasar el ratón */
+    color: #fff; /* Texto blanco al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+
+@media (max-width: 768px) {
+    .navbar_links {
+      display: none;
+    }
   }
