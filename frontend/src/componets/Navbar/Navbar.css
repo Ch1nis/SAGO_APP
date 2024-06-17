@@ -3,12 +3,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #097596;
+    background: #ffffff;
     padding:10px 3%;
 }
 
 .logo{
-    width: 90px;
+    padding-top: 2px;
+    width: 20vh;
     cursor: pointer;
 }
 
@@ -16,7 +17,7 @@
     display: flex;
     flex-direction: column;
     background: white;
-    width: 50%;
+    width: 15%;
     border-radius: 5px;
     padding: 5px;
     position: relative;
@@ -28,4 +29,20 @@
     left: 0px;
     width: 100%;
     z-index: 1;
+  }
+
+  .icon_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(10, 121, 10);
+    margin: 0 10px;
+  }
+
+  .navbar_icons {
+    display: flex;
+    justify-content: space-between;
   }
