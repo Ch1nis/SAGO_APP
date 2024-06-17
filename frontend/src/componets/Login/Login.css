@@ -9,15 +9,25 @@
 .Login form {
     width: 50%;
     max-width: 500px;
-    border: 1px solid #ccc;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: rgb(206, 206, 206);
+    box-shadow: 0 4px 8px rgb(255, 255, 255);
 }
 
 body{
-  background: rgb(120, 180, 172);
+  background: rgb(255, 255, 255);
 
 }
 
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+
+.submit-button {
+  width: 100%;
+  background-color: green;
+}

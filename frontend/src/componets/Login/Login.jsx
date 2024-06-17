@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import './Login.css';
 import { Button, Form } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
+import logo from '../../assets/Iconos/logo.png';
 
 const Login = () => {
   const [rut, setRut] = useState('');
@@ -42,14 +43,14 @@ const Login = () => {
   return (
     <div className="Login">   
         <Form onSubmit={handleSubmit}>
-            <h1>Inicio de sesión</h1>
+          <img src={logo} alt="Logo" className="logo" style={{ marginBottom: '20px' }} />
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>RUT</Form.Label>
+                <Form.Label>Rut</Form.Label>
                 <Form.Control 
                     value={rut}
                     onChange={(e) => setRut(e.target.value)}
                     type="text" 
-                    placeholder="RUT" />
+                    placeholder="Ingrese su rut..." />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -58,9 +59,9 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
-                    placeholder="Contraseña" />
+                    placeholder="Ingrese su contraseña..." />
             </Form.Group>
-            <Button type="submit">
+            <Button type="submit" className="btn-success submit-button">
                 Iniciar sesión
             </Button>
         </Form>
