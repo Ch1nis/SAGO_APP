@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+
 const lat = -40.57377;
 const lon = -73.10702;
 const zoom = 16.5; // Ahora puedes usar un zoom decimal

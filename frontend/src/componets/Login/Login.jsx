@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Map from '../Map/map'; //todo
+import Map from '../Map/Map'; //todo
 import { useNavigate } from 'react-router-dom'; // todo
 import Swal from 'sweetalert2';
 import './Login.css';
