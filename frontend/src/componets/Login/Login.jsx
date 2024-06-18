@@ -28,7 +28,7 @@ const Login = () => {
         // navigate.push(Map);
         Swal.fire({
             icon: 'success',
-            title: 'Wow....',
+            title: 'Acceso concedido!',
             text: 'Contraseña correcta!',
           });
       } else {

@@ -1,31 +1,96 @@
 .split-pane .Resizer {
-    background: #000;
-    opacity: 0.2;
-    z-index: 1;
-    box-sizing: border-box;
-    background-clip: padding-box;
-  }
-  
-  .split-pane .Resizer:hover {
-    -webkit-transition: all 2s ease;
-    transition: all 2s ease;
-    background: #000;
-  }
-  
-  /* Si es una división vertical */
-  .split-pane .Resizer.vertical {
-    width: 10px;
-    cursor: col-resize;
-    border-left: 5px solid rgba(255, 255, 255, 0);
-    border-right: 5px solid rgba(255, 255, 255, 0);
-  }
-  
-  /* Si es una división horizontal */
-  .split-pane .Resizer.horizontal {
-    height: 10px; 
-    cursor: row-resize;
-    border-top: 5px solid rgba(255, 255, 255, 0);
-    border-bottom: 5px solid rgba(255, 255, 255, 0);
+  background: #000;
+  opacity: 0.2;
+  z-index: 1;
+  box-sizing: border-box;
+  background-clip: padding-box;
+}
+
+.split-pane .Resizer:hover {
+  -webkit-transition: all 2s ease;
+  transition: all 2s ease;
+  background: #000;
+}
+
+/* Si es una división vertical */
+.split-pane .Resizer.vertical {
+  width: 10px;
+  cursor: col-resize;
+  border-left: 5px solid rgba(255, 255, 255, 0);
+  border-right: 5px solid rgba(255, 255, 255, 0);
+}
+
+/* Si es una división horizontal */
+.split-pane .Resizer.horizontal {
+  height: 10px;
+  cursor: row-resize;
+  border-top: 5px solid rgba(255, 255, 255, 0);
+  border-bottom: 5px solid rgba(255, 255, 255, 0);
+}
+
+.form-input {
+  max-width: 300px; /* Ajusta este valor a lo que necesites */
+}
+
+.content-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.content-container h1 {
+  margin-right: auto;
+}
+
+.title-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px; /* Ajusta este valor según tus necesidades */
+  height: 80%; /* Ajusta este valor según tus necesidades */
+  margin: auto 0;
+  background-color: white; /* Ajusta el color de fondo según tus necesidades */
+}
+
+.submit-button {
+  width: 300px;
+  background-color: green;
+}
+
+/* Media Query para pantallas menores a 400px */
+@media (max-width: 400px) {
+  .form-section {
+    max-width: 300px; /* Ajusta el tamaño máximo */
+    height: auto; /* Ajusta la altura */
   }
 
-  
+  .submit-button {
+    width: 150px; /* Ajusta el tamaño del botón */
+    font-size: 0.8em; /* Ajusta el tamaño de la fuente del botón */
+  }
+
+  .form-input {
+    max-width: 150px; /* Ajusta el tamaño máximo del input */
+  }
+
+  .title-section {
+    flex-direction: column; /* Cambia la dirección del flex a columna */
+    align-items: center; /* Centra los elementos en la columna */
+  }
+
+  .content-container {
+    flex-direction: column; /* Cambia la dirección del flex a columna */
+    align-items: center; /* Centra los elementos en la columna */
+  }
+
+  .content-container h1 {
+    margin: 0 0 1em 0; /* Ajusta el margen del título */
+  }
+}
