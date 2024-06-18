@@ -11,29 +11,29 @@ const EditorMapa = () => {
       <div className="pane-left">
         <Map />
       </div>
-        <div className="pane-right">
-          <div className="title-section">
-            
-          </div>
-          <div className="form-section">
-      <Form>
-      <h1>Edición de mapa SAGO</h1>
-        <Form.Group as={Col}>
-          <Form.Label>Nombre del Poligono</Form.Label>
-          <Form.Control type="text" placeholder="   " className='form-input' />
-        </Form.Group>
+      <div className="pane-right">
+        <div className="title-section">
 
-        <Form.Group as={Col}>
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control type="text" placeholder="Ingrese texto" className='form-input' />
-        </Form.Group>
+        </div>
+        <div className="form-section">
+          <Form>
+            <h1>Edición de mapa SAGO</h1>
+            <Form.Group as={Col}>
+              <Form.Label>Nombre del Poligono</Form.Label>
+              <Form.Control type="text" placeholder="   " className='form-input' readonly="true" />
+            </Form.Group>
 
-        <Form.Group as={Col}>
-          <Form.Label>Area</Form.Label>
-          <Form.Control type="text" placeholder="Ingrese texto" className='form-input' />
-        </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>Nombre</Form.Label>
+              <Form.Control type="text" placeholder="Ingrese texto" className='form-input' />
+            </Form.Group>
 
-        {/* <Form.Group as={Col}>
+            <Form.Group as={Col}>
+              <Form.Label>Area</Form.Label>
+              <Form.Control type="text" placeholder="Ingrese texto" className='form-input' />
+            </Form.Group>
+
+            {/* <Form.Group as={Col}>
           <Form.Label>Select</Form.Label>
           <Form.Control as="select" className='form-input'>
             <option>Option 1</option>
@@ -42,18 +42,18 @@ const EditorMapa = () => {
           </Form.Control>
         </Form.Group> */}
 
-        {/* <Form.Group as={Col}>
+            {/* <Form.Group as={Col}>
           <Form.Label>Subir Imagen</Form.Label>
           <Form.Control type="file" className='form-input' />
         </Form.Group> */}
-        <br />
-        <Button variant="success" type="submit" className="submit-button">
-          Guardar Cambios
-        </Button>
+            <br />
+            <Button variant="success" type="submit" className="submit-button">
+              Guardar Cambios
+            </Button>
 
-      </Form>
+          </Form>
+        </div>
       </div>
-    </div>
     </SplitPane>
   );
 };
