@@ -1,6 +1,6 @@
 /* Estilos para el contenedor de la barra de navegación */
 .navbar {
-    height: 100px;
+    height: 10vh;
     top: 0;
     width: 100%;
     display: flex;

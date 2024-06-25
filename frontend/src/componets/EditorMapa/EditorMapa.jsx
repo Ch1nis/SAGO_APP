@@ -19,8 +19,8 @@ const EditorMapa = () => {
           <Form>
             <h1>Edición de mapa SAGO</h1>
             <Form.Group as={Col}>
-              <Form.Label>Nombre del Poligono</Form.Label>
-              <Form.Control type="text" placeholder="   " className='form-input' readonly="true" />
+              <Form.Label>ID Poligono</Form.Label>
+              <Form.Control type="text" placeholder="   " className='form-input cursor-not-allowed' disabled/>
             </Form.Group>
 
             <Form.Group as={Col}>
@@ -29,7 +29,12 @@ const EditorMapa = () => {
             </Form.Group>
 
             <Form.Group as={Col}>
-              <Form.Label>Area</Form.Label>
+              <Form.Label>Info</Form.Label>
+              <Form.Control type="text" placeholder="Ingrese texto" className='form-input' />
+            </Form.Group>
+
+            <Form.Group as={Col}>
+              <Form.Label>Horario</Form.Label>
               <Form.Control type="text" placeholder="Ingrese texto" className='form-input' />
             </Form.Group>
 

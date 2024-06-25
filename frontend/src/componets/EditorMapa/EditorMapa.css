@@ -47,6 +47,10 @@
   justify-content: center;
 }
 
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
 .form-section {
   display: flex;
   flex-direction: column;
@@ -54,7 +58,7 @@
   justify-content: center;
   width: 100%;
   max-width: 500px; /* Ajusta este valor según tus necesidades */
-  height: 80%; /* Ajusta este valor según tus necesidades */
+  height: 90vh; /* Ajusta este valor según tus necesidades */
   margin: auto 0;
   background-color: white; /* Ajusta el color de fondo según tus necesidades */
 }

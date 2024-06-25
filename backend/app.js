@@ -39,4 +39,24 @@ app.post('/login', (req, res) => {
     });
   });
 
-
+app.post('/poligonos', (req, res) => {
+    console.log("a")
+    const { id_poligono } = req.body;
+    let sqlQuery = 'SELECT * FROM poligonos WHERE id_poligono = ?';
+    executeQuery(mysql.format(sqlQuery, [id_poligono]), (error, results) => {
+      console.log(results)
+      if (error) {
+        console.error('Error al ejecutar la consulta SQL:', error);
+        res.status(500).send('Error al ejecutar la consulta SQL');
+        return;
+      }
+      if (results.length > 0) {
+        const polygonData = results[0];
+        console.log(polygonData)
+        polygonData.coordinates = JSON.parse(polygonData.coordinates);
+        res.json(polygonData);
+      } else {
+        res.status(404).send('Polígono no encontrado');
+      }
+    });
+  });
