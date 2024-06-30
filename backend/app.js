@@ -60,3 +60,18 @@ app.post('/poligonos', (req, res) => {
       }
     });
   });
+
+
+// actualizar datos de db segun id_poligono
+app.put('/poligonos', (req, res) => {
+    const { id_poligono, name_poligono, info_poligono, hora_poligono } = req.body;
+    let sqlQuery = 'UPDATE poligonos SET name_poligono = ?, info_poligono = ?, hora_poligono = ? WHERE id_poligono = ?';
+    executeQuery(mysql.format(sqlQuery, [name_poligono, info_poligono, hora_poligono, id_poligono]), (error, results) => {
+      if (error) {
+        console.error('Error al ejecutar la consulta SQL:', error);
+        res.status(500).send('Error al ejecutar la consulta SQL');
+        return;
+      }
+      res.json({ success: true });
+    });
+  });

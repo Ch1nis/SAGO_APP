@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 20 }) => {
+const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 20, setPolygonData, updatePolygon  }) => {
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
+  const polygonLayers = useRef({});
   const fetchPolygonData = async (id_poligono) => {
     try {
       const response = await fetch('http://localhost:3000/poligonos', {
@@ -34,23 +35,79 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 20 }) => 
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(mapInstance.current);
 
-
-      // Obtener datos del polígono con id 3
-      fetchPolygonData(3).then(polygonData => {
+      const addPolygonToMap = async (id) => {
+        const polygonData = await fetchPolygonData(id);
         if (polygonData) {
           const { name_poligono, info_poligono, hora_poligono, coordinates } = polygonData;
 
           // Convierte las coordenadas del polígono al formato GeoJSON esperado por Leaflet
           const geoJsonLayer = L.geoJSON(coordinates).addTo(mapInstance.current);
+          polygonLayers.current[id] = geoJsonLayer;
 
-          // Añade popups a cada capa del GeoJSON
+          // Añade popups a cada capa del GeoJSON y configura el clic
           geoJsonLayer.eachLayer(layer => {
             layer.bindPopup(`Nombre: ${name_poligono}<br>Info: ${info_poligono}<br>Hora: ${hora_poligono}`);
+            layer.on('click', () => {
+              setPolygonData({
+                id_poligono: id,
+                name_poligono,
+                info_poligono,
+                hora_poligono,
+                coordinates,
+              });
+            });
           });
         }
-      });
+      };
+
+      // Obtener datos de los polígonos con ids 3 y 4
+      addPolygonToMap(3);
+      addPolygonToMap(4);
     }
-  }, []);
+  }, [setPolygonData]);
+
+  
+  useEffect(() => {
+    if (updatePolygon && mapInstance.current) {
+      const { id_poligono, name_poligono, info_poligono, hora_poligono, coordinates } = updatePolygon;
+  
+      // Eliminar el polígono antiguo del mapa si existe
+      if (polygonLayers.current[id_poligono]) {
+        mapInstance.current.removeLayer(polygonLayers.current[id_poligono]);
+      }
+  
+      // Crear el nuevo polígono
+      const geoJsonLayer = L.geoJSON(coordinates, {
+        onEachFeature: (feature, layer) => {
+          const popupContent = `Nombre: ${name_poligono}<br>Info: ${info_poligono}<br>Hora: ${hora_poligono}`;
+          layer.bindPopup(popupContent);
+          
+          layer.on('click', (e) => {
+            // Abrir el popup sin redibujar el polígono
+            e.target.openPopup();
+            
+            // Actualizar el estado solo si es necesario
+            setPolygonData(prevData => {
+              if (prevData.id_poligono !== id_poligono) {
+                return {
+                  id_poligono,
+                  name_poligono,
+                  info_poligono,
+                  hora_poligono,
+                  coordinates,
+                };
+              }
+              return prevData;
+            });
+          });
+        }
+      }).addTo(mapInstance.current);
+  
+      // Almacenar la referencia al nuevo polígono
+      polygonLayers.current[id_poligono] = geoJsonLayer;
+    }
+  }, [updatePolygon]);
+
 
 
       // const geojsons = ['./Poligonos/norte.geojson', './Poligonos/oeste.geojson'];
