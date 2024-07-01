@@ -29,7 +29,7 @@ const EditorMapa = () => {
       return;
     }
 
-    console.log ('polygonData', polygonData)
+    console.log('polygonData', polygonData)
     try {
       const response = await fetch('http://localhost:3000/poligonos', {
         method: 'PUT',
@@ -41,7 +41,7 @@ const EditorMapa = () => {
 
       if (response.ok) {
         console.log('Datos actualizados con éxito:', polygonData)
-        setUpdatedPolygon({ ...polygonData});
+        setUpdatedPolygon({ ...polygonData });
         Swal.fire({
           icon: 'success',
           title: 'Éxito',
@@ -84,7 +84,7 @@ const EditorMapa = () => {
   return (
     <SplitPane split="vertical" defaultSize="50%" className="split-pane">
       <div className="pane-left">
-      <Map
+        <Map
           setPolygonData={(data) => {
             setPolygonData(data);
             setIsFormEnabled(true);
@@ -114,66 +114,66 @@ const EditorMapa = () => {
             > */}
 
             <div>
-            <Form.Group as={Col}>
-              <Form.Label>Nombre</Form.Label>
-              <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-              >
-              <div>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese texto"
-                className='form-input'
-                value={polygonData.name_poligono}
-                onChange={(e) => setPolygonData({ ...polygonData, name_poligono: e.target.value })}
-                disabled={!isFormEnabled}
-              />
-              </div>
-              </OverlayTrigger>
-            </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Nombre</Form.Label>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={!isFormEnabled ? renderTooltip : <></>}
+                >
+                  <div>
+                    <Form.Control
+                      type="text"
+                      placeholder="Ingrese texto"
+                      className='form-input'
+                      value={polygonData.name_poligono}
+                      onChange={(e) => setPolygonData({ ...polygonData, name_poligono: e.target.value })}
+                      disabled={!isFormEnabled}
+                    />
+                  </div>
+                </OverlayTrigger>
+              </Form.Group>
 
-            <Form.Group as={Col}>
-            <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-                
-              >
-              <div>
-              <Form.Label>Info</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese texto"
-                className='form-input'
-                value={polygonData.info_poligono}
-                onChange={(e) => setPolygonData({ ...polygonData, info_poligono: e.target.value })}
-                disabled={!isFormEnabled}
-              />
-              </div>
-              </OverlayTrigger>
-            </Form.Group>
+              <Form.Group as={Col}>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={!isFormEnabled ? renderTooltip : <></>}
 
-            <Form.Group as={Col}>
-              <Form.Label>Horario</Form.Label>
-              <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-              
-              >
-              <div>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese texto"
-                className='form-input'
-                value={polygonData.hora_poligono}
-                onChange={(e) => setPolygonData({ ...polygonData, hora_poligono: e.target.value })}
-                disabled={!isFormEnabled}
-              />
-              </div>
-              </OverlayTrigger>
-            </Form.Group>
+                >
+                  <div>
+                    <Form.Label>Info</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Ingrese texto"
+                      className='form-input'
+                      value={polygonData.info_poligono}
+                      onChange={(e) => setPolygonData({ ...polygonData, info_poligono: e.target.value })}
+                      disabled={!isFormEnabled}
+                    />
+                  </div>
+                </OverlayTrigger>
+              </Form.Group>
 
-            {/* <Form.Group as={Col}>
+              <Form.Group as={Col}>
+                <Form.Label>Horario</Form.Label>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={!isFormEnabled ? renderTooltip : <></>}
+
+                >
+                  <div>
+                    <Form.Control
+                      type="text"
+                      placeholder="Ingrese texto"
+                      className='form-input'
+                      value={polygonData.hora_poligono}
+                      onChange={(e) => setPolygonData({ ...polygonData, hora_poligono: e.target.value })}
+                      disabled={!isFormEnabled}
+                    />
+                  </div>
+                </OverlayTrigger>
+              </Form.Group>
+
+              {/* <Form.Group as={Col}>
           <Form.Label>Select</Form.Label>
           <Form.Control as="select" className='form-input'>
             <option>Option 1</option>
@@ -182,22 +182,22 @@ const EditorMapa = () => {
           </Form.Control>
         </Form.Group> */}
 
-            {/* <Form.Group as={Col}>
+              {/* <Form.Group as={Col}>
           <Form.Label>Subir Imagen</Form.Label>
           <Form.Control type="file" className='form-input' />
         </Form.Group> */}
-        </div>
+            </div>
             <br />
             <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-              
-              >
+              placement="top"
+              overlay={!isFormEnabled ? renderTooltip : <></>}
+
+            >
               <div>
-            <Button variant="success" type="submit" className="submit-button" disabled={!isFormEnabled}>
-              Guardar Cambios
-            </Button>
-            </div>
+                <Button variant="success" type="submit" className="submit-button" disabled={!isFormEnabled}>
+                  Guardar Cambios
+                </Button>
+              </div>
             </OverlayTrigger>
           </Form>
         </div>
