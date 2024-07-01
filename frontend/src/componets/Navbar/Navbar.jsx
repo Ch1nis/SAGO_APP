@@ -43,7 +43,7 @@ function Navbar() {
         <li>
           <a href="#">Plan Estratégico</a>
           <ul className="dropdown-content">
-            <li><a href="/mision-y-vision">Mision y Vision</a></li>
+            <li><a href="https://sago.cl/mision-y-vision/">Mision y Vision</a></li>
             <li><a href="/desafios">Desafios</a></li>
           </ul>
         </li>
@@ -54,7 +54,7 @@ function Navbar() {
           <img src={search} alt="Search" style={{ width: '20px', height: '20px' }} />
         </div>
         <div className="icon_container">
-        <Menu />
+          <Menu />
         </div>
       </div>
     </nav>

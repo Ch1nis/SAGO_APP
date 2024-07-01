@@ -1,0 +1,24 @@
+{
+    "name": "Recinto SAGO",
+    "short_name": "SAGO",
+    "lang": "es-CL",
+    "description":"Mapa Recinto SAGO",
+    
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "theme_color": "#9EE2DF",
+    "background_color": "#74CFE6",
+    "orientation" : "any",
+
+
+    "icons": [
+      {
+        "src": "../assets/Iconos/logo.png",
+        "sizes": "300x105",
+        "type": "image/x-icon"
+      }
+    ]
+    
+  }
+  
