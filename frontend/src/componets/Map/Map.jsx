@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 20, setPolygonData, updatePolygon  }) => {
+const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 20, minZoom = 17, setPolygonData, updatePolygon }) => {
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
   const polygonLayers = useRef({});
@@ -28,7 +28,8 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 20, setPo
       mapInstance.current = L.map(mapContainer.current, {
         center: center,
         zoom: zoom,
-        maxZoom: maxZoom
+        maxZoom: maxZoom,
+        minZoom: minZoom
       });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -63,6 +64,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 20, setPo
       // Obtener datos de los polígonos con ids 3 y 4
       addPolygonToMap(3);
       addPolygonToMap(4);
+      addPolygonToMap(5);
     }
   }, [setPolygonData]);
 

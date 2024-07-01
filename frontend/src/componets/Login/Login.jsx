@@ -10,7 +10,7 @@ import logo from '../../assets/Iconos/logo.png';
 const Login = () => {
   const [rut, setRut] = useState('');
   const [password, setPassword] = useState('');
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,12 +25,7 @@ const Login = () => {
       const data = await response.json();
   
       if (data.success) {
-        // navigate.push(Map);
-        Swal.fire({
-            icon: 'success',
-            title: 'Acceso concedido!',
-            text: 'Contraseña correcta!',
-          });
+          navigate('/home');
       } else {
         Swal.fire({
           icon: 'error',
