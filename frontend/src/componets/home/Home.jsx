@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Home.css';
+import './Home.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Navbar from '../Navbar/Navbar';
@@ -42,14 +42,14 @@ const Gallery = () => {
           <div className="row gy-4 justify-content-center">
             {images.map((image, index) => (
               <div className="col-md-6" key={index}>
-                <div className="gallery-item h-100">
-                  <a href={image.link}>
+                <a href={image.link}>
+                  <div className="gallery-item h-100">
                     <img src={image.src} className="img-fluid" alt={image.label} />
                     <div className="gallery-links d-flex align-items-center justify-content-center">
                       <span className="details-link">{image.label}</span>
                     </div>
-                  </a>
-                </div>
+                  </div>
+                </a>
               </div>
             ))}
           </div>
