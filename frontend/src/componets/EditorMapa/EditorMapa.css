@@ -1,4 +1,17 @@
-.split-pane .Resizer {
+.reflex-container {
+  height: 100vh;
+}
+
+.reflex-splitter {
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.reflex-element {
+  overflow: auto;
+}
+
+.split-pane .reflex-splitter {
   background: #000;
   opacity: 0.2;
   z-index: 1;
@@ -6,22 +19,20 @@
   background-clip: padding-box;
 }
 
-.split-pane .Resizer:hover {
+.split-pane .reflex-splitter:hover {
   -webkit-transition: all 2s ease;
   transition: all 2s ease;
   background: #000;
 }
 
-/* Si es una división vertical */
-.split-pane .Resizer.vertical {
+.split-pane .reflex-splitter.vertical {
   width: 10px;
   cursor: col-resize;
   border-left: 5px solid rgba(255, 255, 255, 0);
   border-right: 5px solid rgba(255, 255, 255, 0);
 }
 
-/* Si es una división horizontal */
-.split-pane .Resizer.horizontal {
+.split-pane .reflex-splitter.horizontal {
   height: 10px;
   cursor: row-resize;
   border-top: 5px solid rgba(255, 255, 255, 0);
@@ -29,7 +40,7 @@
 }
 
 .form-input {
-  max-width: 300px; /* Ajusta este valor a lo que necesites */
+  max-width: 300px;
 }
 
 .content-container {
@@ -57,10 +68,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 500px; /* Ajusta este valor según tus necesidades */
-  height: 90vh; /* Ajusta este valor según tus necesidades */
+  max-width: 500px;
+  height: 90vh;
   margin: auto 0;
-  background-color: white; /* Ajusta el color de fondo según tus necesidades */
+  background-color: white;
 }
 
 .submit-button {
@@ -68,33 +79,33 @@
   background-color: green;
 }
 
-/* Media Query para pantallas menores a 400px */
-@media (max-width: 400px) {
+@media (max-width: 600px) {
+  .reflex-container {
+    flex-direction: column;
+  }
+
+  .reflex-splitter {
+    width: 100%;
+    height: 10px;
+    cursor: row-resize;
+  }
+
   .form-section {
-    max-width: 300px; /* Ajusta el tamaño máximo */
-    height: auto; /* Ajusta la altura */
+    max-width: 300px;
+    height: auto;
   }
 
   .submit-button {
-    width: 150px; /* Ajusta el tamaño del botón */
-    font-size: 0.8em; /* Ajusta el tamaño de la fuente del botón */
+    width: 150px;
+    font-size: 0.8em;
   }
 
   .form-input {
-    max-width: 150px; /* Ajusta el tamaño máximo del input */
+    max-width: 150px;
   }
 
   .title-section {
-    flex-direction: column; /* Cambia la dirección del flex a columna */
-    align-items: center; /* Centra los elementos en la columna */
-  }
-
-  .content-container {
-    flex-direction: column; /* Cambia la dirección del flex a columna */
-    align-items: center; /* Centra los elementos en la columna */
-  }
-
-  .content-container h1 {
-    margin: 0 0 1em 0; /* Ajusta el margen del título */
+    flex-direction: column;
+    align-items: center;
   }
 }

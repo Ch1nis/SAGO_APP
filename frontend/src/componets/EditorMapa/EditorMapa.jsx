@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
-import SplitPane from 'react-split-pane';
+import React, { useState, useEffect } from 'react';
+import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex';
+import 'react-reflex/styles.css';
 import Map from '../Map/Map.jsx';
 import './EditorMapa.css';
 import { Form, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-
 
 const EditorMapa = () => {
   const [polygonData, setPolygonData] = useState({
@@ -16,10 +16,22 @@ const EditorMapa = () => {
   });
   const [updatedPolygon, setUpdatedPolygon] = useState(null);
   const [isFormEnabled, setIsFormEnabled] = useState(false);
+  const [orientation, setOrientation] = useState('vertical');
+
+  useEffect(() => {
+    const handleResize = () => {
+      setOrientation(window.innerWidth <= 600 ? 'horizontal' : 'vertical');
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // Verificar si algún campo está vacío
     if (!polygonData.name_poligono || !polygonData.info_poligono || !polygonData.hora_poligono) {
       Swal.fire({
         icon: 'warning',
@@ -29,7 +41,7 @@ const EditorMapa = () => {
       return;
     }
 
-    console.log ('polygonData', polygonData)
+    console.log('polygonData', polygonData);
     try {
       const response = await fetch('http://localhost:3000/poligonos', {
         method: 'PUT',
@@ -40,15 +52,14 @@ const EditorMapa = () => {
       });
 
       if (response.ok) {
-        console.log('Datos actualizados con éxito:', polygonData)
-        setUpdatedPolygon({ ...polygonData});
+        console.log('Datos actualizados con éxito:', polygonData);
+        setUpdatedPolygon({ ...polygonData });
         Swal.fire({
           icon: 'success',
           title: 'Éxito',
           text: 'Datos actualizados con éxito',
         });
 
-        // Limpiar campos después de la actualización
         setPolygonData({
           id_poligono: '',
           name_poligono: '',
@@ -57,7 +68,6 @@ const EditorMapa = () => {
           coordinates: [],
         });
         setIsFormEnabled(false);
-
       } else {
         Swal.fire({
           icon: 'error',
@@ -74,135 +84,109 @@ const EditorMapa = () => {
       });
     }
   };
+
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       Seleccione un polígono primero
     </Tooltip>
   );
 
-
   return (
-    <SplitPane split="vertical" defaultSize="50%" className="split-pane">
-      <div className="pane-left">
-      <Map
+    <ReflexContainer orientation={orientation} style={{ height: '100vh', width: '100%' }}>
+      <ReflexElement className="left-pane" minSize={200} maxSize={1000} flex={0.5}>
+        <div className="pane-content">
+        <Map
+          style={{ height: '100%' }}
           setPolygonData={(data) => {
             setPolygonData(data);
             setIsFormEnabled(true);
           }}
           updatePolygon={updatedPolygon}
         />
-      </div>
-      <div className="pane-right">
-        <div className="title-section"></div>
-        <div className="form-section">
-          <Form onSubmit={handleFormSubmit}>
-            <h1>Edición de mapa SAGO</h1>
-            <Form.Group as={Col}>
-              <Form.Label>ID Poligono</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="   "
-                className='form-input cursor-not-allowed'
-                value={polygonData.id_poligono}
-                disabled
-              />
-            </Form.Group>
-
-            {/* <OverlayTrigger
-              placement="top"
-              overlay={renderTooltip}
-            > */}
-
-            <div>
-            <Form.Group as={Col}>
-              <Form.Label>Nombre</Form.Label>
-              <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-              >
-              <div>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese texto"
-                className='form-input'
-                value={polygonData.name_poligono}
-                onChange={(e) => setPolygonData({ ...polygonData, name_poligono: e.target.value })}
-                disabled={!isFormEnabled}
-              />
-              </div>
-              </OverlayTrigger>
-            </Form.Group>
-
-            <Form.Group as={Col}>
-            <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-                
-              >
-              <div>
-              <Form.Label>Info</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese texto"
-                className='form-input'
-                value={polygonData.info_poligono}
-                onChange={(e) => setPolygonData({ ...polygonData, info_poligono: e.target.value })}
-                disabled={!isFormEnabled}
-              />
-              </div>
-              </OverlayTrigger>
-            </Form.Group>
-
-            <Form.Group as={Col}>
-              <Form.Label>Horario</Form.Label>
-              <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-              
-              >
-              <div>
-              <Form.Control
-                type="text"
-                placeholder="Ingrese texto"
-                className='form-input'
-                value={polygonData.hora_poligono}
-                onChange={(e) => setPolygonData({ ...polygonData, hora_poligono: e.target.value })}
-                disabled={!isFormEnabled}
-              />
-              </div>
-              </OverlayTrigger>
-            </Form.Group>
-
-            {/* <Form.Group as={Col}>
-          <Form.Label>Select</Form.Label>
-          <Form.Control as="select" className='form-input'>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </Form.Control>
-        </Form.Group> */}
-
-            {/* <Form.Group as={Col}>
-          <Form.Label>Subir Imagen</Form.Label>
-          <Form.Control type="file" className='form-input' />
-        </Form.Group> */}
         </div>
-            <br />
-            <OverlayTrigger
-                placement="top"
-                overlay={!isFormEnabled ? renderTooltip : <></>}
-              
-              >
+      </ReflexElement>
+
+      <ReflexSplitter />
+
+      <ReflexElement className="right-pane" minSize={200} maxSize={1000} flex={0.5}>
+        <div className="pane-content">
+          <div className="title-section"></div>
+          <div className="form-section">
+            <Form onSubmit={handleFormSubmit}>
+              <h1>Edición de mapa SAGO</h1>
+              <Form.Group as={Col}>
+                <Form.Label>ID Poligono</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="   "
+                  className="form-input cursor-not-allowed"
+                  value={polygonData.id_poligono}
+                  disabled
+                />
+              </Form.Group>
+
               <div>
-            <Button variant="success" type="submit" className="submit-button" disabled={!isFormEnabled}>
-              Guardar Cambios
-            </Button>
-            </div>
-            </OverlayTrigger>
-          </Form>
+                <Form.Group as={Col}>
+                  <Form.Label>Nombre</Form.Label>
+                  <OverlayTrigger placement="top" overlay={!isFormEnabled ? renderTooltip : <></>}>
+                    <div>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese texto"
+                        className="form-input"
+                        value={polygonData.name_poligono}
+                        onChange={(e) => setPolygonData({ ...polygonData, name_poligono: e.target.value })}
+                        disabled={!isFormEnabled}
+                      />
+                    </div>
+                  </OverlayTrigger>
+                </Form.Group>
+
+                <Form.Group as={Col}>
+                  <OverlayTrigger placement="top" overlay={!isFormEnabled ? renderTooltip : <></>}>
+                    <div>
+                      <Form.Label>Info</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese texto"
+                        className="form-input"
+                        value={polygonData.info_poligono}
+                        onChange={(e) => setPolygonData({ ...polygonData, info_poligono: e.target.value })}
+                        disabled={!isFormEnabled}
+                      />
+                    </div>
+                  </OverlayTrigger>
+                </Form.Group>
+
+                <Form.Group as={Col}>
+                  <Form.Label>Horario</Form.Label>
+                  <OverlayTrigger placement="top" overlay={!isFormEnabled ? renderTooltip : <></>}>
+                    <div>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese texto"
+                        className="form-input"
+                        value={polygonData.hora_poligono}
+                        onChange={(e) => setPolygonData({ ...polygonData, hora_poligono: e.target.value })}
+                        disabled={!isFormEnabled}
+                      />
+                    </div>
+                  </OverlayTrigger>
+                </Form.Group>
+              </div>
+              <br />
+              <OverlayTrigger placement="top" overlay={!isFormEnabled ? renderTooltip : <></>}>
+                <div>
+                  <Button variant="success" type="submit" className="submit-button" disabled={!isFormEnabled}>
+                    Guardar Cambios
+                  </Button>
+                </div>
+              </OverlayTrigger>
+            </Form>
+          </div>
         </div>
-      </div>
-    </SplitPane>
+      </ReflexElement>
+    </ReflexContainer>
   );
 };
 
