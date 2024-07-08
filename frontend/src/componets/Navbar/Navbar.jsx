@@ -51,9 +51,6 @@ function Navbar() {
       </ul>
       <div className="navbar_icons">
         <div className="icon_container">
-          <img src={search} alt="Search" style={{ width: '20px', height: '20px' }} />
-        </div>
-        <div className="icon_container">
         <Menu />
         </div>
       </div>

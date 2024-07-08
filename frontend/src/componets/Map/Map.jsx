@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 19, minZoom = 17, setPolygonData, updatePolygon }) => {
+const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZoom = 17, setPolygonData, updatePolygon }) => {
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
   const polygonLayers = useRef({});

@@ -3,31 +3,22 @@ import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Navbar from '../Navbar/Navbar';
-import eventos from './gallery/eventos.png';
 import sagorecinto from './gallery/sagorecinto.jpeg';
 
 const Gallery = () => {
   const images = [
-    { src: eventos, link: 'inicio/', label: 'Edicion de mapa recino SAGO' },
-    { src: sagorecinto, link: 'Si/', label: 'Edicion de mapa eventos SAGO' },
+    { src: sagorecinto, link: 'inicio/', label: 'Edición de mapa recinto SAGO' },
   ];
 
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScroll(true);
-      } else {
-        setShowScroll(false);
-      }
+      setShowScroll(window.scrollY > 300);
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollTop = () => {
@@ -38,25 +29,23 @@ const Gallery = () => {
     <>
       <Navbar />
       <section id="gallery" className="gallery">
-        <div className="container-fluid">
           <div className="row gy-4 justify-content-center">
             {images.map((image, index) => (
-              <div className="col-md-6" key={index}>
-                <a href={image.link}>
-                  <div className="gallery-item h-100">
+              <div className="col-lg-10 col-md-12" key={index}>
+                <a href={image.link} className="gallery-item-wrapper">
+                  <div className="gallery-item">
                     <img src={image.src} className="img-fluid" alt={image.label} />
-                    <div className="gallery-links d-flex align-items-center justify-content-center">
+                    <div className="gallery-links">
                       <span className="details-link">{image.label}</span>
                     </div>
                   </div>
                 </a>
               </div>
             ))}
-          </div>
         </div>
       </section>
       {showScroll && (
-        <div className="scroll-top active d-flex align-items-center justify-content-center" onClick={scrollTop}>
+        <div className="scroll-top" onClick={scrollTop}>
           <i className="bi bi-arrow-up-short"></i>
         </div>
       )}
