@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import logo from '../../assets/Iconos/logo.png';
-import menu from './Iconos/menu.svg';
-import search from './Iconos/search.svg';
 import Menu from './Menu/Menu';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,7 +10,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar_logo">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src={"https://i.imgur.com/VpCZisn.png"} alt="Logo" className="logo" />
       </div>
       <ul className="navbar_links">
         <li>
