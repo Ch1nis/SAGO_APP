@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react';
+import  { useRef, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.offline'; // Importa leaflet.offline
 import { savePolygonData, getPolygonData, getAllPolygonData } from './idb';
 
-const $url = `${import.meta.env.VITE_APP_RUTA}/poligonos`;
+const $url = `${import.meta.env.VITE_APP_RUTA}/poligonos`
+
 
 const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZoom = 17, setPolygonData, updatePolygon }) => {
   const mapContainer = useRef(null);
@@ -13,7 +13,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
 
   const fetchPolygonData = async (id_poligono) => {
     try {
-      const response = await fetch($url, {
+      const response = await fetch( $url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,12 +22,12 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
       });
       const data = await response.json();
       if (data) {
-        await savePolygonData(data); // Guarda los datos en IndexedDB
+        await savePolygonData(data);  // Guarda los datos en IndexedDB
       }
       return data || null;
     } catch (error) {
       console.error('Error al obtener los datos del backend:', error);
-      return getPolygonData(id_poligono); // Recupera los datos de IndexedDB
+      return getPolygonData(id_poligono);  // Recupera los datos de IndexedDB
     }
   };
 
@@ -41,23 +41,9 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
           minZoom: minZoom
         });
 
-        const tileLayer = L.tileLayer.offline('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        });
-
-        tileLayer.addTo(mapInstance.current);
-
-        const saveTiles = async (bounds, minZoom, maxZoom) => {
-          for (let z = minZoom; z <= maxZoom; z++) {
-            const tiles = tileLayer._getTilesFromCenterAndZoom(bounds.getCenter(), z);
-            for (const tile of tiles) {
-              await tileLayer.saveTile(tile);
-            }
-          }
-        };
-
-        const bounds = mapInstance.current.getBounds();
-        await saveTiles(bounds, minZoom, maxZoom);
+        }).addTo(mapInstance.current);
 
         const addPolygonToMap = async (id) => {
           const polygonData = await fetchPolygonData(id);
@@ -82,6 +68,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
           }
         };
 
+      
         const polygonIds = [3, 4, 5];
         for (const id of polygonIds) {
           await addPolygonToMap(id);
@@ -124,7 +111,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
       }).addTo(mapInstance.current);
 
       polygonLayers.current[id_poligono] = geoJsonLayer;
-      savePolygonData(updatePolygon); // Guarda los datos en IndexedDB
+      savePolygonData(updatePolygon);  // Guarda los datos IIIndexedDB
     }
   }, [updatePolygon]);
 
