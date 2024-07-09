@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import Map from '../Map/Map'; //todo
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // todo
 import Swal from 'sweetalert2';
 import './Login.css';
 import { Button, Form } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from '../../assets/Iconos/logo.png';
+
+const $login = `${import.meta.env.VITE_APP_RUTA}/login`
 
 const Login = () => {
   const [rut, setRut] = useState('');
@@ -14,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch('http://localhost:3000/login', {
+    const response = await fetch( $login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

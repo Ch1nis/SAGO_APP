@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex';
 import 'react-reflex/styles.css';
 import Map from '../Map/Map.jsx';
 import './EditorMapa.css';
 import { Form, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+
+const $url = `${import.meta.env.VITE_APP_RUTA}/poligonos`
+
+
 
 const EditorMapa = () => {
   const [polygonData, setPolygonData] = useState({
@@ -43,7 +47,7 @@ const EditorMapa = () => {
 
     console.log('polygonData', polygonData);
     try {
-      const response = await fetch('http://localhost:3000/poligonos', {
+      const response = await fetch( $url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

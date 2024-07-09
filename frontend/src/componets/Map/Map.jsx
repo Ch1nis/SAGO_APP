@@ -1,7 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import  { useRef, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { savePolygonData, getPolygonData, getAllPolygonData } from './idb';
+
+const $url = `${import.meta.env.VITE_APP_RUTA}/poligonos`
+
 
 const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZoom = 17, setPolygonData, updatePolygon }) => {
   const mapContainer = useRef(null);
@@ -10,7 +13,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
 
   const fetchPolygonData = async (id_poligono) => {
     try {
-      const response = await fetch('https://gg303qv0-8000.brs.devtunnels.ms/poligonos', {
+      const response = await fetch( $url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +27,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
       return data || null;
     } catch (error) {
       console.error('Error al obtener los datos del backend:', error);
-      return getPolygonData(id_poligono);  // Recupera los datos de IndexedDB si hay un error
+      return getPolygonData(id_poligono);  // Recupera los datos de IndexedDB
     }
   };
 
@@ -65,7 +68,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
           }
         };
 
-        // Obtener todos los datos de los polígonos de IndexedDB y del servidor
+      
         const polygonIds = [3, 4, 5];
         for (const id of polygonIds) {
           await addPolygonToMap(id);
@@ -108,7 +111,7 @@ const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZo
       }).addTo(mapInstance.current);
 
       polygonLayers.current[id_poligono] = geoJsonLayer;
-      savePolygonData(updatePolygon);  // Guarda los datos actualizados en IndexedDB
+      savePolygonData(updatePolygon);  // Guarda los datos IIIndexedDB
     }
   }, [updatePolygon]);
 
