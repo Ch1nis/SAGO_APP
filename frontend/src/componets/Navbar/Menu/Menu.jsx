@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Offcanvas, Button } from 'react-bootstrap';
 import menu from '../Iconos/menu.svg';
 import './Menu.css';
 
 function Menu() {
   const [show, setShow] = useState(false);
-
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const linkSago = 'https://sago.cl'
+  const links = [
+    { path: "/mapa-casamiento", label: "Mapa Casamiento" },
+    { path: "/mapa-sago", label: "Mapa Sago" },
+    { path: "/nuestro-gremio", label: "Nuestro Gremio" },
+    { path: "/directorio", label: "Directorio" },
+    { path: "/historia", label: "Historia" },
+    { path: "/gremiales", label: "Gremiales" },
+    { path: "/agricolas", label: "Agricolas" },
+    { path: "/columnas-de-opinion", label: "Columnas de Opinion" },
+    { path: "/estadisticas", label: "Estadisticas" },
+    { path: "/mision-y-vision", label: "Mision y Vision" },
+    { path: "/desafios", label: "Desafios" },
+    { path: "/contacto", label: "Contacto" }
+  ];
   return (
     <>
       <Button variant="success" onClick={handleShow} className="icon_container">
@@ -20,18 +35,11 @@ function Menu() {
           <Offcanvas.Title>Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <a href="/mapa-casamiento" onClick={handleClose}>Mapa Casamiento</a>
-          <a href="/mapa-sago" onClick={handleClose}>Mapa Sago</a>
-          <a href="/nuestro-gremio" onClick={handleClose}>Nuestro Gremio</a>
-          <a href="/directorio" onClick={handleClose}>Directorio</a>
-          <a href="/historia" onClick={handleClose}>Historia</a>
-          <a href="/gremiales" onClick={handleClose}>Gremiales</a>
-          <a href="/agricolas" onClick={handleClose}>Agricolas</a>
-          <a href="/columnas-de-opinion" onClick={handleClose}>Columnas de Opinion</a>
-          <a href="/estadisticas" onClick={handleClose}>Estadisticas</a>
-          <a href="/mision-y-vision" onClick={handleClose}>Mision y Vision</a>
-          <a href="/desafios" onClick={handleClose}>Desafios</a>
-          <a href="/contacto" onClick={handleClose}>Contacto</a>
+          {links.map(({ path, label }) => (
+            <a key={path} href={`${linkSago}${path}`} onClick={handleClose} className="menu-link">
+              {label}
+            </a>
+          ))}
         </Offcanvas.Body>
       </Offcanvas>
     </>
