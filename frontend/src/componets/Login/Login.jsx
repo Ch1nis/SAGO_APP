@@ -6,7 +6,7 @@ import { Button, Form } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from '../../assets/Iconos/logo.png';
 
-const $login = `${import.meta.env.VITE_APP_PRUEBA}/login`
+const $login = `${import.meta.env.VITE_APP_RUTA}/login`
 
 const Login = () => {
   const [rut, setRut] = useState('');

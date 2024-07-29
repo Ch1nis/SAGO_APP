@@ -178,7 +178,7 @@ nav ul li ul li a:hover {
 }
 
 
-@media (max-width: 928px) {
+@media (max-width: 768px) {
     .navbar_links {
       display: none;
     }

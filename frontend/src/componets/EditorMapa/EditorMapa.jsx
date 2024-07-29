@@ -6,7 +6,7 @@ import './EditorMapa.css';
 import { Form, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
-const $url = `${import.meta.env.VITE_APP_PRUEBA}/poligonos`
+const $url = `${import.meta.env.VITE_APP_RUTA}/poligonos`
 
 
 
