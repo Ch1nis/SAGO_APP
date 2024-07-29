@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { savePolygonData, getPolygonData, getAllPolygonData } from './idb';
 
-const $url = `${import.meta.env.VITE_APP_RUTA}/poligonos`
+const $url = `${import.meta.env.VITE_APP_PRUEBA}/poligonos`
 
 
 const Map = ({ center = [-40.57377, -73.10702], zoom = 16.5, maxZoom = 18, minZoom = 17, setPolygonData, updatePolygon }) => {
