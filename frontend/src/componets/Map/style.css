@@ -1,9 +1,4 @@
-body {
-    margin: 0;
-    padding: 0;
-}
 
-#map {
-    width: 800px;
-    height: 500px;
+a:hover {
+    color: none; /* Mantiene el color original del enlace */
 }

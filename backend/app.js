@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-const port = 3000;
+const port = process.env.BACKEND_PORT;
 const { executeQuery } = require("./db");
 
 app.get("/", (req, res) => {
@@ -42,11 +42,10 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/poligonos", (req, res) => {
-  console.log("a");
   const { id_poligono } = req.body;
   let sqlQuery = "SELECT * FROM poligonos WHERE id_poligono = ?";
   executeQuery(mysql.format(sqlQuery, [id_poligono]), (error, results) => {
-    console.log(results);
+    //console.log(results);       En el podemos ver la carga de informacion
     if (error) {
       console.error("Error al ejecutar la consulta SQL:", error);
       res.status(500).send("Error al ejecutar la consulta SQL");
@@ -54,7 +53,7 @@ app.post("/poligonos", (req, res) => {
     }
     if (results.length > 0) {
       const polygonData = results[0];
-      console.log(polygonData);
+      console.log(polygonData.name_poligono);
       polygonData.coordinates = JSON.parse(polygonData.coordinates);
       res.json(polygonData);
     } else {
@@ -65,14 +64,23 @@ app.post("/poligonos", (req, res) => {
 
 // actualizar datos de db segun id_poligono
 app.put("/poligonos", (req, res) => {
-  const { id_poligono, name_poligono, info_poligono, hora_poligono } = req.body;
+  const {
+    id_poligono,
+    name_poligono,
+    info_poligono,
+    hora_poligono,
+    dia_poligono,
+    url,
+  } = req.body;
   let sqlQuery =
-    "UPDATE poligonos SET name_poligono = ?, info_poligono = ?, hora_poligono = ? WHERE id_poligono = ?";
+    "UPDATE poligonos SET name_poligono = ?, info_poligono = ?, hora_poligono = ?, dia_poligono = ?, url = ? WHERE id_poligono = ?";
   executeQuery(
     mysql.format(sqlQuery, [
       name_poligono,
       info_poligono,
       hora_poligono,
+      dia_poligono,
+      url,
       id_poligono,
     ]),
     (error, results) => {

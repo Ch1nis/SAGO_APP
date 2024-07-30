@@ -14,11 +14,8 @@ function Navbar() {
       </div>
       <ul className="navbar_links">
         <li>
-          <a href="#">Mapa Interactivo</a>
-          <ul className="dropdown-content">
-            <li><a href="/mapa-casamiento">Mapa Casamiento</a></li>
-            <li><a href="/mapa-sago">Mapa Sago</a></li>
-          </ul>
+          <a href="/">Mapa Interactivo</a>
+          
         </li>
         <li>
           <a href="#">Nuestro A G</a>

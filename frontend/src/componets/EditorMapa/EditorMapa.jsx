@@ -6,9 +6,7 @@ import './EditorMapa.css';
 import { Form, Col, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
-const $url = `${import.meta.env.VITE_APP_PRUEBA}/poligonos`
-
-
+const $url = `${import.meta.env.VITE_APP_RUTA}/poligonos`
 
 const EditorMapa = () => {
   const [polygonData, setPolygonData] = useState({
@@ -16,6 +14,8 @@ const EditorMapa = () => {
     name_poligono: '',
     info_poligono: '',
     hora_poligono: '',
+    dia_poligono: '', // Nuevo campo
+    url: '', // Nuevo campo
     coordinates: [],
   });
   const [updatedPolygon, setUpdatedPolygon] = useState(null);
@@ -47,7 +47,7 @@ const EditorMapa = () => {
 
     console.log('polygonData', polygonData);
     try {
-      const response = await fetch( $url, {
+      const response = await fetch($url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -69,6 +69,8 @@ const EditorMapa = () => {
           name_poligono: '',
           info_poligono: '',
           hora_poligono: '',
+          dia_poligono: '', // Nuevo campo
+          url: '', // Nuevo campo
           coordinates: [],
         });
         setIsFormEnabled(false);
@@ -99,14 +101,14 @@ const EditorMapa = () => {
     <ReflexContainer orientation={orientation} style={{ height: '100vh', width: '100%' }}>
       <ReflexElement className="left-pane" minSize={200} maxSize={1000} flex={0.5}>
         <div className="pane-content">
-        <Map
-          style={{ height: '100%' }}
-          setPolygonData={(data) => {
-            setPolygonData(data);
-            setIsFormEnabled(true);
-          }}
-          updatePolygon={updatedPolygon}
-        />
+          <Map
+            style={{ height: '100%' }}
+            setPolygonData={(data) => {
+              setPolygonData(data);
+              setIsFormEnabled(true);
+            }}
+            updatePolygon={updatedPolygon}
+          />
         </div>
       </ReflexElement>
 
@@ -151,12 +153,13 @@ const EditorMapa = () => {
                     <div>
                       <Form.Label>Info</Form.Label>
                       <Form.Control
-                        type="text"
+                        as="textarea"
                         placeholder="Ingrese texto"
                         className="form-input"
                         value={polygonData.info_poligono}
                         onChange={(e) => setPolygonData({ ...polygonData, info_poligono: e.target.value })}
                         disabled={!isFormEnabled}
+                        rows={3} // Puedes ajustar el número de filas según sea necesario
                       />
                     </div>
                   </OverlayTrigger>
@@ -172,6 +175,38 @@ const EditorMapa = () => {
                         className="form-input"
                         value={polygonData.hora_poligono}
                         onChange={(e) => setPolygonData({ ...polygonData, hora_poligono: e.target.value })}
+                        disabled={!isFormEnabled}
+                      />
+                    </div>
+                  </OverlayTrigger>
+                </Form.Group>
+
+                <Form.Group as={Col}>
+                  <Form.Label>Día</Form.Label>
+                  <OverlayTrigger placement="top" overlay={!isFormEnabled ? renderTooltip : <></>}>
+                    <div>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese texto"
+                        className="form-input"
+                        value={polygonData.dia_poligono}
+                        onChange={(e) => setPolygonData({ ...polygonData, dia_poligono: e.target.value })}
+                        disabled={!isFormEnabled}
+                      />
+                    </div>
+                  </OverlayTrigger>
+                </Form.Group>
+
+                <Form.Group as={Col}>
+                  <Form.Label>URL</Form.Label>
+                  <OverlayTrigger placement="top" overlay={!isFormEnabled ? renderTooltip : <></>}>
+                    <div>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ingrese texto"
+                        className="form-input"
+                        value={polygonData.url}
+                        onChange={(e) => setPolygonData({ ...polygonData, url: e.target.value })}
                         disabled={!isFormEnabled}
                       />
                     </div>
